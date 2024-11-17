@@ -142,6 +142,29 @@ fn main() {
 
         println!("img {}", img);
 
+        //location
+        let place_selector = scraper::Selector::parse(r#"ul[class="subtitle-places"]"#).unwrap();
+        let li_selector = scraper::Selector::parse("li").unwrap();
+        let place = apartment.select(&place_selector).next().unwrap();
+
+        let mut place = place.select(&li_selector);
+
+        let p1 = place.next().unwrap().inner_html();
+        let p1 = p1.split('&').next().unwrap();    
+        println!("p1 {}", p1);
+
+        let p2 = place.next().unwrap().inner_html();
+        let p2 = p2.split('&').next().unwrap();
+        println!("p2 {}", p2);
+
+        let p3 = place.next().unwrap().inner_html();
+        let p3 = p3.split('&').next().unwrap();
+        println!("p3 {}", p3);
+
+        let p4 = place.next().unwrap().inner_html();
+        let p4 = p4.split('&').next().unwrap();
+        println!("p4 {}", p4);
+
         let now_secs = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
@@ -164,7 +187,7 @@ fn main() {
         let file_path = format!("{}.json",get_file_name(&title));
 
         // Save the apartment to a file
-        save_to_file(&apt, &file_path).unwrap();
-        println!("Apartment saved to {}", file_path);
+        //save_to_file(&apt, &file_path).unwrap();
+        //println!("Apartment saved to {}", file_path);
     }
 }
